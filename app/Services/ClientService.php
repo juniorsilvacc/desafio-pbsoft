@@ -19,4 +19,11 @@ class ClientService
 
         return $trucks;
     }
+
+    public function getByUUid($clientUuid)
+    {
+        $travel = $this->repository->getByUUid($clientUuid);
+
+        return $travel;
+    }
 }

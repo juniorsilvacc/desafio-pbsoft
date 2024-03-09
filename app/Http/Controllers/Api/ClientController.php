@@ -24,4 +24,11 @@ class ClientController extends Controller
 
         return ClientResource::collection($clients);
     }
+
+    public function show($clientUuid)
+    {
+        $client = $this->service->getByUUid($clientUuid);
+
+        return new ClientResource($client);
+    }
 }

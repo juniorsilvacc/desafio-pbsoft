@@ -8,9 +8,9 @@ interface ClientRepositoryInterface
 
     public function createClient(array $data);
 
-    public function getById(string $truckId);
+    public function getByUUid(string $clientUuid);
 
-    public function updateClient(array $data, string $clientId);
+    public function updateClient(array $data, string $clientUuid);
 
-    public function deleteClient(string $clientId);
+    public function deleteClient(string $clientUuid);
 }

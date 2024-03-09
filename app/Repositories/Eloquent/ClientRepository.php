@@ -32,15 +32,18 @@ class ClientRepository implements ClientRepositoryInterface
     {
     }
 
-    public function getById(string $truckId)
+    public function getByUUid(string $clientUuid)
+    {
+        $client = $this->model->where('id', $clientUuid)->first();
+
+        return $client;
+    }
+
+    public function updateClient(array $data, string $clientUuid)
     {
     }
 
-    public function updateClient(array $data, string $clientId)
-    {
-    }
-
-    public function deleteClient(string $clientId)
+    public function deleteClient(string $clientUuid)
     {
     }
 }
