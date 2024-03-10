@@ -7,12 +7,12 @@ A PBSOFT é uma empresa que atende a uma variedade de sistemas, incluindo sites 
 
 ### Desenvolvido com as seguintes tecnologias:
 - Conceitos de boas práticas e qualidade no código, usando Design Patterns, Clean Architecture, Domain Driven Design (DDD) e Princípios SOLID
-- PHP
 - Laravel
 - Vue 3
 - Banco de dados relacional MySQL
 - Docker
-- Testes Automatizados
+- Testes automatizados
+- Swagger para **Documentação**
 
 ### Passo a passo para inicialização
 
