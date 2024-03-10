@@ -15,7 +15,7 @@ return new class() extends Migration {
             $table->string('name');
             $table->string('social_name');
             $table->date('birth_date');
-            $table->string('cpf');
+            $table->string('cpf')->unique();
             $table->string('photo')->nullable();
             $table->timestamps();
         });

@@ -15,15 +15,22 @@ class ClientService
 
     public function getPaginate($filter = null)
     {
-        $trucks = $this->repository->getPaginate($filter);
+        $clients = $this->repository->getPaginate($filter);
 
-        return $trucks;
+        return $clients;
     }
 
-    public function getByUUid($clientUuid)
+    public function getByUUid(string $clientUuid)
     {
-        $travel = $this->repository->getByUUid($clientUuid);
+        $client = $this->repository->getByUUid($clientUuid);
 
-        return $travel;
+        return $client;
+    }
+
+    public function create(array $data)
+    {
+        $client = $this->repository->create($data);
+
+        return $client;
     }
 }

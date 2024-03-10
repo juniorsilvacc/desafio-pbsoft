@@ -28,10 +28,6 @@ class ClientRepository implements ClientRepositoryInterface
         return $query->paginate($perPage);
     }
 
-    public function createClient(array $data)
-    {
-    }
-
     public function getByUUid(string $clientUuid)
     {
         $client = $this->model->where('id', $clientUuid)->first();
@@ -39,11 +35,18 @@ class ClientRepository implements ClientRepositoryInterface
         return $client;
     }
 
-    public function updateClient(array $data, string $clientUuid)
+    public function create(array $data)
+    {
+        $newClient = $this->model->create($data);
+
+        return $newClient;
+    }
+
+    public function update(array $data, string $clientUuid)
     {
     }
 
-    public function deleteClient(string $clientUuid)
+    public function delete(string $clientUuid)
     {
     }
 }
