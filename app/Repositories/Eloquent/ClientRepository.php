@@ -53,5 +53,8 @@ class ClientRepository implements ClientRepositoryInterface
 
     public function delete(string $clientUuid)
     {
+        $client = $this->model->findOrFail($clientUuid);
+
+        $client->delete();
     }
 }

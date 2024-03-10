@@ -40,4 +40,9 @@ class ClientService
 
         return $client;
     }
+
+    public function delete(string $clientUuid)
+    {
+        $this->repository->delete($clientUuid);
+    }
 }

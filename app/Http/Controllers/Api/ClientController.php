@@ -80,4 +80,9 @@ class ClientController extends Controller
 
         return new ClientResource($client);
     }
+
+    public function destroy($clientUuid)
+    {
+        $this->service->delete($clientUuid);
+    }
 }
