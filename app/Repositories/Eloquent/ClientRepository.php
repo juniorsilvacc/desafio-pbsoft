@@ -44,6 +44,11 @@ class ClientRepository implements ClientRepositoryInterface
 
     public function update(array $data, string $clientUuid)
     {
+        $client = $this->model->where('id', $clientUuid)->first();
+
+        $client->update($data);
+
+        return $client;
     }
 
     public function delete(string $clientUuid)

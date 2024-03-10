@@ -58,4 +58,26 @@ class ClientController extends Controller
             'client' => new ClientResource($newClient),
         ], 201);
     }
+
+    public function update(ClientStoreUpdateRequest $request, $clientUuid)
+    {
+        $data = $request->validated();
+
+        $client = $this->service->getByUUid($clientUuid);
+
+        if (!$client) {
+            return response()->json(['message' => 'Cliente não encontrado'], 404);
+        }
+
+        // Método para manipular o upload da imagem
+        $uploadedImage = $this->uploadImageService->handleImageUpload($request, $client->photo);
+
+        if ($uploadedImage !== null) {
+            $data['photo'] = $uploadedImage;
+        }
+
+        $client = $this->service->update($data, $clientUuid);
+
+        return new ClientResource($client);
+    }
 }

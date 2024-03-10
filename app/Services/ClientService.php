@@ -29,7 +29,14 @@ class ClientService
 
     public function create(array $data)
     {
-        $client = $this->repository->create($data);
+        $newClient = $this->repository->create($data);
+
+        return $newClient;
+    }
+
+    public function update(array $data, string $clientUuid)
+    {
+        $client = $this->repository->update($data, $clientUuid);
 
         return $client;
     }
