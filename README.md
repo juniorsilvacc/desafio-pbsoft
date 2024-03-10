@@ -82,5 +82,10 @@ Você estará inserindo alguns registros dinâmicos que podem servir como um gui
 php artisan db:seed
 ```
 
+Executar testes para garantir a validação contínua da integridade e funcionalidade do software
+```sh 
+php artisan test
+```
+
 Acessar o projeto
 [http://localhost:8989](http://localhost:8989)
