@@ -1,16 +1,14 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="clients && clients.meta">
         <h1 class="title">Clientes</h1>
 
         <div class="card-title mb-4 px-0">
             <div class="d-flex justify-content-between align-items-center">
-                <div class="search">
-                    <input type="text" class="form-control" placeholder="Pesquisar" />
-                </div>
+                <SearchClientComponent @searchClient="search" />
 
-                <a href="#" class="btn btn-success">
+                <router-link :to="{ name: 'clients.create' }" class="btn btn-success">
                     <i class="mdi mdi-plus"></i> Adicionar
-                </a>
+                </router-link>
             </div>
         </div>
 
@@ -28,8 +26,8 @@
                 <tr v-for="(client, index) in clients.data" :key="index">
                     <td>{{ client.nome }}</td>
                     <td>{{ client.nome_social }}</td>
-                    <td>{{ client.data_nascimento }}</td>
-                    <td>{{ client.cpf }}</td>
+                    <td>{{ formatBirthDate(client.data_nascimento) }}</td>
+                    <td>{{ formatCPF(client.cpf) }}</td>
                     <td>
                         <a class="btn btn-primary btn-acction">
                             <i class="fas fa-eye"></i>
@@ -44,18 +42,32 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Paginate -->
+        <PaginationComponent :currentPage="currentPage" :lastPage="clients.meta.last_page" :changePage="paginate" />
     </div>
 </template>
 
 <script>
+import { formatCPF, formatBirthDate } from '../../helpers/helpers.js';
+import SearchClientComponent from "../../components/SearchProductComponent.vue";
+import PaginationComponent from "../../components/PaginationComponent.vue";
+
 export default {
     name: "ClientsComponent",
+
+    components: {
+        SearchClientComponent,
+        PaginationComponent,
+    },
     data() {
         return {
+            name: '',
+            currentPage: 1,
         };
     },
     created() {
-        this.$store.dispatch("loadClients");
+        this.$store.dispatch("loadClients", { name: this.name });
     },
     computed: {
         clients() {
@@ -63,6 +75,16 @@ export default {
         },
     },
     methods: {
+        search(filter) {
+            this.$store.dispatch("loadClients", { name: filter, page: 1 });
+        },
+        paginate(page) {
+            this.currentPage = page;
+            this.$store.dispatch("loadClients", { name: this.name, page });
+        },
+
+        // Formatting methods
+        formatCPF, formatBirthDate,
     },
 };
 </script>
@@ -71,10 +93,6 @@ export default {
 .title {
     margin: 20px 0 30px 0;
     font-weight: 600;
-}
-
-.search {
-    width: 50%;
 }
 
 .acctions {

@@ -14,15 +14,12 @@ class ClientRepository implements ClientRepositoryInterface
         $this->model = $client;
     }
 
-    public function getPaginate($filter = null, $perPage = 5)
+    public function getPaginate($name = null, $perPage = 5)
     {
         $query = $this->model->orderBy('created_at', 'asc');
 
-        if ($filter) {
-            $query->where(function ($query) use ($filter) {
-                $query->where('name', 'LIKE', "%{$filter}%")
-                      ->orWhere('cpf', 'LIKE', "%{$filter}%");
-            });
+        if ($name !== null) {
+            $query->where('name', 'LIKE', "%{$name}%");
         }
 
         return $query->paginate($perPage);

@@ -13,9 +13,9 @@ class ClientService
         $this->repository = $repository;
     }
 
-    public function getPaginate($filter = null)
+    public function getPaginate($name = null)
     {
-        $clients = $this->repository->getPaginate($filter);
+        $clients = $this->repository->getPaginate($name);
 
         return $clients;
     }
