@@ -90,11 +90,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-    margin: 20px 0 30px 0;
-    font-weight: 600;
-}
-
 .acctions {
     display: flex;
     align-items: center;
