@@ -25,11 +25,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Cícero Júnior</td>
-                    <td>Júnior</td>
-                    <td>04-09-1996</td>
-                    <td>703.597.984-03</td>
+                <tr v-for="(client, index) in clients.data" :key="index">
+                    <td>{{ client.nome }}</td>
+                    <td>{{ client.nome_social }}</td>
+                    <td>{{ client.data_nascimento }}</td>
+                    <td>{{ client.cpf }}</td>
                     <td>
                         <a class="btn btn-primary btn-acction">
                             <i class="fas fa-eye"></i>
@@ -37,7 +37,7 @@
                         <a class="btn btn-warning btn-acction">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="btn btn-danger" @click="removeClient">
+                        <a class="btn btn-danger">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
@@ -50,9 +50,19 @@
 <script>
 export default {
     name: "ClientsComponent",
-    methods: {
-        removeClient() {
+    data() {
+        return {
+        };
+    },
+    created() {
+        this.$store.dispatch("loadClients");
+    },
+    computed: {
+        clients() {
+            return this.$store.state.clients.items;
         },
+    },
+    methods: {
     },
 };
 </script>

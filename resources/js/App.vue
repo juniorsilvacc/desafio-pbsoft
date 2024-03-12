@@ -1,11 +1,17 @@
 <template>
     <notifications />
     <router-view></router-view>
+    <preloader />
 </template>
 
 <script>
+import preloader from "./components/PreLoaderComponent.vue";
+
 export default {
-  name: 'App'
+    components: {
+        preloader,
+    },
+    name: 'App'
 }
 </script>
 
