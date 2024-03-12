@@ -45,7 +45,7 @@ class ClientStoreUpdateRequest extends FormRequest
                 "unique:clients,cpf,{$this->id},id",
             ],
             'photo' => [
-                'nullable',
+                'sometimes',
                 'image',
                 'mimes:jpeg,png,jpg,gif',
                 'max:2048',

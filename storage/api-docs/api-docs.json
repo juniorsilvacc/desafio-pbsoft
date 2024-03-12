@@ -1,0 +1,288 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - Desafio PBSoft",
+        "description": "API RESTFul",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/clients": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Listar todos os clientes",
+                "operationId": "cc561a4afa5c5a97b24c6eb25f15ac3d",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filtro para busca de clientes",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Client"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Criar um novo cliente",
+                "operationId": "2bf3bc69d90a260fd5df0549e4446321",
+                "requestBody": {
+                    "description": "Dados do cliente",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ClientStoreUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente criado com sucesso"
+                                        },
+                                        "client": {
+                                            "$ref": "#/components/schemas/Client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/clients/{id}": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Obter detalhes de cliente",
+                "operationId": "9497b9df43a3cdb3e5e03ed30a4b05a2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do cliente"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Atualizar cliente",
+                "operationId": "51bdc17bb69ddad4f820b22008a0fc9f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do cliente a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados do cliente a ser atualizado",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ClientStoreUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Client"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Deletar cliente existente",
+                "operationId": "d6acd17a779d9287c110286164ba1388",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do cliente a ser deletado",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Client": {
+                "required": [
+                    "id",
+                    "name",
+                    "social_name",
+                    "birth_date",
+                    "cpf",
+                    "photo"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único do cliente (UUID)",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "description": "Nome",
+                        "type": "string"
+                    },
+                    "social_name": {
+                        "description": "Nome Social",
+                        "type": "string"
+                    },
+                    "birth_date": {
+                        "description": "Data de Nascimento",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "cpf": {
+                        "description": "CPF",
+                        "type": "string"
+                    },
+                    "photo": {
+                        "description": "Foto",
+                        "type": "file",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ClientStoreUpdateRequest": {
+                "title": "ClientStoreUpdateRequest",
+                "required": [
+                    "name",
+                    "social_name",
+                    "birth_date",
+                    "cpf",
+                    "photo"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Nome",
+                        "type": "string"
+                    },
+                    "social_name": {
+                        "description": "Nome Social",
+                        "type": "string"
+                    },
+                    "birth_date": {
+                        "description": "Data de Nascimento",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "cpf": {
+                        "description": "CPF",
+                        "type": "string"
+                    },
+                    "photo": {
+                        "description": "Foto",
+                        "type": "file",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "404": {
+                "description": "Cliente não encontrado",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Cliente não encontrado"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
