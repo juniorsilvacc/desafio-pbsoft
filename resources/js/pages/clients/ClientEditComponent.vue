@@ -40,7 +40,6 @@ export default {
             .dispatch("loadClient", this.id)
             .then((response) => {
                 response.data.birth_date = formatBirthDate(response.data.birth_date);
-                response.data.image = null;
                 this.client.data = response.data;
             })
             .catch((error) => {
