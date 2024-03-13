@@ -59,6 +59,7 @@ export default {
                 }
             );
             context.commit("CHANGE_PRELOADER", false);
+            context.dispatch("loadClients");
             return response.data;
         } catch (error) {
             context.commit("CHANGE_PRELOADER", false);

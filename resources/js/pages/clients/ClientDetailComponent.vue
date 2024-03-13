@@ -8,7 +8,8 @@
                     <li class="list-group-item"><strong>Nome:</strong> {{ client.data.name }}</li>
                     <li class="list-group-item"><strong>Nome Social:</strong> {{ client.data.social_name }}</li>
                     <li class="list-group-item"><strong>CPF:</strong> {{ formatCPF(client.data.cpf) }}</li>
-                    <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ formatBirthDate(client.data.birth_date) }}
+                    <li class="list-group-item"><strong>Data de Nascimento:</strong> {{
+                        formatBirthDate(client.data.birth_date) }}
                     </li>
                 </ul>
             </div>
