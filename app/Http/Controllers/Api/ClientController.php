@@ -100,7 +100,7 @@ class ClientController extends Controller
      *     tags={"Client"},
      *
      *     @OA\Parameter(
-     *         name="filter",
+     *         name="name",
      *         in="query",
      *         description="Filtro para busca de clientes",
      *         required=false,
@@ -122,9 +122,9 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->input('filter');
+        $name = $request->input('name');
 
-        $clients = $this->service->getPaginate($filter);
+        $clients = $this->service->getPaginate($name);
 
         return ClientResource::collection($clients);
     }

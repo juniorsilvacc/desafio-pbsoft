@@ -15,7 +15,7 @@
                 "operationId": "cc561a4afa5c5a97b24c6eb25f15ac3d",
                 "parameters": [
                     {
-                        "name": "filter",
+                        "name": "name",
                         "in": "query",
                         "description": "Filtro para busca de clientes",
                         "required": false,

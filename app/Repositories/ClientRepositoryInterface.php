@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 interface ClientRepositoryInterface
 {
-    public function getPaginate($filter = null, $perPage = 5);
+    public function getPaginate($name = null, $perPage = 5);
 
     public function getByUUid(string $clientUuid);
 

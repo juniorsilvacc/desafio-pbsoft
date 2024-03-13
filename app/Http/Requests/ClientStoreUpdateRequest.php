@@ -36,7 +36,7 @@ class ClientStoreUpdateRequest extends FormRequest
             ],
             'birth_date' => [
                 'required',
-                'date',
+                'date_format:d/m/Y',
             ],
             'cpf' => [
                 'required',
@@ -45,7 +45,7 @@ class ClientStoreUpdateRequest extends FormRequest
                 "unique:clients,cpf,{$this->id},id",
             ],
             'photo' => [
-                'sometimes',
+                $this->isMethod('PUT') ? 'nullable' : 'required',
                 'image',
                 'mimes:jpeg,png,jpg,gif',
                 'max:2048',

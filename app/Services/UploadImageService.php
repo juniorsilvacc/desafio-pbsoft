@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class UploadImageService
 {
-    private $path = 'clients';
+    private $path = 'public/clients';
 
     private function deleteClientImage($photoName)
     {
