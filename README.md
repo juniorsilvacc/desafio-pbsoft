@@ -87,6 +87,7 @@ php artisan db:seed
 Executar testes para garantir a validação contínua da integridade e funcionalidade do software
 ```sh 
 php artisan test
+```
 
 Instalar das dependências do projeto listadas no arquivo package.json
 ```sh 
