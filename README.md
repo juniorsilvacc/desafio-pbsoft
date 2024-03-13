@@ -49,37 +49,37 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
-Contrua novas imagens a parti do Dockfile
+Contruir novas imagens a parti do Dockfile
 ```sh 
 docker compose build
 ```
 
-Inicialize os contêineres da aplicação
+Inicializar os contêineres da aplicação
 ```sh 
 docker compose up -d
 ```
 
-Acesse o conainter da aplicação
+Acessar o contâiner da aplicação
 ```sh 
 docker exec -it desafio-backend-pbsoft-app-1 bash
 ```
 
-Instale as dependências da aplicação
+Instalar as dependências da aplicação
 ```sh 
 composer install
 ```
 
-Gere a key da aplicação Laravel
+Gerar a key da aplicação Laravel
 ```sh 
 php artisan key:generate
 ```
 
-Execute as migrations
+Executar as migrations
 ```sh 
 php artisan migrate
 ```
 
-Você estará inserindo alguns registros dinâmicos que podem servir como um guia
+Inserir alguns registros dinâmicos que podem servir como um guia
 ```sh 
 php artisan db:seed
 ```
@@ -87,6 +87,15 @@ php artisan db:seed
 Executar testes para garantir a validação contínua da integridade e funcionalidade do software
 ```sh 
 php artisan test
+
+Instalar das dependências do projeto listadas no arquivo package.json
+```sh 
+npm install
+```
+
+Inicialização do front-end
+```sh 
+npm run dev
 ```
 
 Acessar o projeto
