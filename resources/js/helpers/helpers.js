@@ -3,7 +3,9 @@ export function formatCPF(cpf) {
 }
 
 export function formatBirthDate(data) {
-    return new Date(data).toLocaleDateString("pt-BR");
+    const parts = data.split('-');
+    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return formattedDate;
 }
 
 export function formatCPFInput(value) {

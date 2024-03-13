@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>Editar Cliente</h1>
+        <h1 class="title">Editar Cliente</h1>
 
         <FormClientComponent :client="client.data" :updating="true" />
     </div>
