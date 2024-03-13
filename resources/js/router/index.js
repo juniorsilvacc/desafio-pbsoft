@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import ClientsComponent from '../pages/clients/ClientsComponent.vue';
 import ClientAddComponent from '../pages/clients/ClientAddComponent.vue';
-import ClientDetailComponent from '../pages/clients/ClientsComponent.vue';
-import ClientEditComponent from '../pages/clients/ClientsComponent.vue';
+import ClientDetailComponent from '../pages/clients/ClientDetailComponent.vue';
+import ClientEditComponent from '../pages/clients/ClientEditComponent.vue';
 
 const routes = [
     {
@@ -24,7 +24,11 @@ const routes = [
     {
         path: '/editar/:id',
         name: 'clients.edit',
-        component: ClientEditComponent
+        component: ClientEditComponent,
+    },
+    {
+        path: '/excluir/:id',
+        name: 'clients.destroy',
     }
 ];
 

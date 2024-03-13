@@ -29,13 +29,15 @@
                     <td>{{ formatBirthDate(client.data_nascimento) }}</td>
                     <td>{{ formatCPF(client.cpf) }}</td>
                     <td>
-                        <a class="btn btn-primary btn-acction">
+                        <router-link :to="{ name: 'clients.detail', params: { id: client.id } }"
+                            class="btn btn-primary btn-acction">
                             <i class="fas fa-eye"></i>
-                        </a>
-                        <a class="btn btn-warning btn-acction">
+                        </router-link>
+                        <router-link :to="{ name: 'clients.edit', params: { id: client.id } }"
+                            class="btn btn-warning btn-acction">
                             <i class="fas fa-edit"></i>
-                        </a>
-                        <a class="btn btn-danger">
+                        </router-link>
+                        <a class="btn btn-danger" type="button" @click.prevent="confirmDestroy(client)">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
@@ -49,6 +51,7 @@
 </template>
 
 <script>
+import { notify } from "@kyvg/vue3-notification";
 import { formatCPF, formatBirthDate } from '../../helpers/helpers.js';
 import SearchClientComponent from "../../components/SearchProductComponent.vue";
 import PaginationComponent from "../../components/PaginationComponent.vue";
@@ -75,6 +78,31 @@ export default {
         },
     },
     methods: {
+        confirmDestroy(client) {
+            if (
+                window.confirm(
+                    `Tem certeza de que deseja excluir: ${client.nome}?`
+                )
+            ) {
+                this.destroy(client);
+            }
+        },
+        destroy(client) {
+            this.$store
+                .dispatch("destroyClient", client.id)
+                .then(() => {
+                    notify({
+                        title: `${client.nome} foi deletado!`,
+                        type: "success",
+                    });
+                })
+                .catch((error) => {
+                    notify({
+                        title: "Error ao deletar cliente",
+                        type: "error",
+                    });
+                });
+        },
         search(filter) {
             this.$store.dispatch("loadClients", { name: filter, page: 1 });
         },
