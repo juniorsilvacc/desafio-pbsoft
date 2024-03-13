@@ -19,16 +19,19 @@ const routes = [
     {
         path: '/detalhes/:id',
         name: 'clients.detail',
-        component: ClientDetailComponent
+        component: ClientDetailComponent,
+        props: true,
     },
     {
         path: '/editar/:id',
         name: 'clients.edit',
         component: ClientEditComponent,
+        props: true,
     },
     {
         path: '/excluir/:id',
         name: 'clients.destroy',
+        props: true,
     }
 ];
 

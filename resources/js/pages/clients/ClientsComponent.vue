@@ -17,17 +17,17 @@
                 <tr>
                     <th>Nome</th>
                     <th>Nome Social</th>
-                    <th>Data de Nascimento</th>
                     <th>CPF</th>
+                    <th>Data de Nascimento</th>
                     <th width="160">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(client, index) in clients.data" :key="index">
-                    <td>{{ client.nome }}</td>
-                    <td>{{ client.nome_social }}</td>
-                    <td>{{ formatBirthDate(client.data_nascimento) }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.social_name }}</td>
                     <td>{{ formatCPF(client.cpf) }}</td>
+                    <td>{{ formatBirthDate(client.birth_date) }}</td>
                     <td>
                         <router-link :to="{ name: 'clients.detail', params: { id: client.id } }"
                             class="btn btn-primary btn-acction">
