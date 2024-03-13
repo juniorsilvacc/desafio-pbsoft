@@ -36,7 +36,7 @@ class ClientStoreUpdateRequest extends FormRequest
             ],
             'birth_date' => [
                 'required',
-                'date',
+                'date_format:d/m/Y',
             ],
             'cpf' => [
                 'required',

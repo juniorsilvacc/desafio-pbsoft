@@ -19,7 +19,8 @@
 
             <div class="form-group mb-3">
                 <label for="description" class="form-label">Data de Nascimento:</label>
-                <input type="text" v-model="client.birth_date" class="form-control" id="birth_date" required />
+                <input type="text" class="form-control" id="birth_date" maxlength="10"
+                    @input="formatBirthDateInput" v-model="client.birth_date" placeholder="DD/MM/AAAA" required />
             </div>
 
             <div class="form-group mb-3">
@@ -38,7 +39,7 @@
 
 <script>
 import { handleImageUpload, handleErrors } from "../../../helpers/handlers.js";
-import { formatCPFInput } from '../../../helpers/helpers.js';
+import { formatCPFInput, formatBirthDateInput } from '../../../helpers/helpers.js';
 import { notify } from "@kyvg/vue3-notification";
 
 export default {
@@ -68,6 +69,9 @@ export default {
     methods: {
         formatCPFInput(event) {
             this.client.cpf = formatCPFInput(event.target.value);
+        },
+        formatBirthDateInput(event) {
+            this.client.birth_date = formatBirthDateInput(event.target.value);
         },
         async onSubmit() {
             try {
