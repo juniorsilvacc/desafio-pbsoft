@@ -37,7 +37,7 @@ class ClientTest extends TestCase
         $response = $this->postJson('/api/v1/clients', [
             'name' => 'Name Test',
             'social_name' => 'Name Social Test',
-            'birth_date' => '2000-01-01',
+            'birth_date' => '01/01/2000',
             'cpf' => '70457898372',
             'photo' => $fakeImage,
         ]);
@@ -85,7 +85,7 @@ class ClientTest extends TestCase
         $newData = [
             'name' => 'Name Test',
             'social_name' => 'Name Social Test',
-            'birth_date' => '2000-01-01',
+            'birth_date' => '01/01/2000',
             'cpf' => '70457898372',
             'photo' => $fakeImage,
         ];
@@ -105,7 +105,7 @@ class ClientTest extends TestCase
         $newData = [
             'name' => 'Name Test',
             'social_name' => 'Name Social Test',
-            'birth_date' => '2000-01-01',
+            'birth_date' => '01/01/2000',
             'cpf' => '70457898372',
             'photo' => $fakeImage,
         ];

@@ -7,6 +7,7 @@ use App\Http\Requests\ClientStoreUpdateRequest;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
 use App\Services\UploadImageService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -214,6 +215,8 @@ class ClientController extends Controller
     {
         $data = $request->validated();
 
+        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
+
         // Método para manipular o upload da imagem
         $uploadedImage = $this->uploadImageService->handleImageUpload($request);
 
@@ -273,6 +276,8 @@ class ClientController extends Controller
     public function update(ClientStoreUpdateRequest $request, $clientUuid)
     {
         $data = $request->validated();
+
+        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
 
         $client = $this->service->getByUUid($clientUuid);
 

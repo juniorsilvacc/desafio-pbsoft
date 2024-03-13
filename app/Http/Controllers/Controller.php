@@ -12,15 +12,6 @@ use Illuminate\Routing\Controller as BaseController;
  *    description="API RESTFul",
  *    version="1.0.0",
  * ),
- *
- *   @OA\SecurityScheme(
- *       securityScheme="bearerAuth",
- *       in="header",
- *       name="bearerAuth",
- *       type="http",
- *       scheme="bearer",
- *       bearerFormat="JWT",
- *    ),
  */
 class Controller extends BaseController
 {
