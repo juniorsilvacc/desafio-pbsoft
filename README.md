@@ -1,5 +1,5 @@
 ## Sobre
-A PBSOFT é uma empresa que atende a uma variedade de sistemas, incluindo sites destacados por distribuir informações entre estados. Diante dessa situação, surgiu uma demanda premente por desenvolver um novo sistema capaz de gerenciar os clientes de forma eficiente.
+A **PBSOFT** é uma empresa que atende a uma variedade de sistemas, incluindo sites destacados por distribuir informações entre estados. Diante dessa situação, surgiu uma demanda premente por desenvolver um novo sistema capaz de gerenciar os clientes de forma eficiente.
 
 ### Desafio
 - Criar um CRUD (Create, Read, Update, Delete) dos clientes.
@@ -7,17 +7,23 @@ A PBSOFT é uma empresa que atende a uma variedade de sistemas, incluindo sites 
 
 ### Desenvolvido com as seguintes tecnologias:
 - Conceitos de boas práticas e qualidade no código, usando Design Patterns, Clean Architecture, Domain Driven Design (DDD) e Princípios SOLID
+- Abordagem SSR(Server-Side Rendering)
 - Laravel
 - Vue 3
 - Vuex
-- Boostrap
+- Bootstrap
 - Banco de dados relacional MySQL
 - Docker
 - Testes automatizados
 - Swagger para **Documentação**
 
-### Passo a passo para inicialização
+### Documentação Swagger
+![DOCUMENTACAOAPI](https://github.com/juniorsilvacc/desafio-backend-pbsoft/assets/43589505/8e9aee25-d2ac-49d3-9517-681a84cc5cc7)
 
+### Front-End
+![WEB](https://github.com/juniorsilvacc/desafio-backend-pbsoft/assets/43589505/c18e68b0-d9e4-48c1-9d6a-af02b4481919)
+
+### Passo a passo para inicialização
 Para clonar este repositório, use o seguinte comando:
 ```sh 
 git clone https://github.com/juniorsilvacc/desafio-backend-pbsoft.git
@@ -79,7 +85,7 @@ Executar as migrations
 php artisan migrate
 ```
 
-Inserir alguns registros dinâmicos que podem servir como um guia
+Inserir dados fictícios para popular o banco de dados
 ```sh 
 php artisan db:seed
 ```
@@ -89,15 +95,15 @@ Executar testes para garantir a validação contínua da integridade e funcional
 php artisan test
 ```
 
-Instalar das dependências do projeto listadas no arquivo package.json
+Instalar dependências listadas no arquivo package.json
 ```sh 
 npm install
 ```
 
-Inicialização do front-end
+Inicializar a aplicação
 ```sh 
 npm run dev
 ```
 
-Acessar o projeto
+Acessar a aplicação
 [http://localhost:8989](http://localhost:8989)
