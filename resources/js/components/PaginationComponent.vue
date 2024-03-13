@@ -62,4 +62,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 767px) {
+    .pagination {
+        margin-top: 8px;
+    }
+}
+</style>
