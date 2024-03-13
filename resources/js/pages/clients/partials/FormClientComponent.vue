@@ -15,12 +15,14 @@
                 <label for="price" class="form-label">CPF:</label>
                 <input type="text" v-model="client.cpf" class="form-control" id="cpf" maxlength="14"
                     @input="formatCPFInput" required />
+                <div v-if="!isValidCPF && cpfTouched" class="text-danger">CPF inválido</div>
             </div>
 
             <div class="form-group mb-3">
                 <label for="description" class="form-label">Data de Nascimento:</label>
-                <input type="text" class="form-control" id="birth_date" maxlength="10"
-                    @input="formatBirthDateInput" v-model="client.birth_date" placeholder="DD/MM/AAAA" required />
+                <input type="text" class="form-control" id="birth_date" maxlength="10" @input="formatBirthDateInput"
+                    v-model="client.birth_date" placeholder="DD/MM/AAAA" required />
+                <div v-if="!isValidBirthDate && birthDateTouched" class="text-danger">Data de nascimento inválida</div>
             </div>
 
             <div class="form-group mb-3">
@@ -40,6 +42,7 @@
 <script>
 import { handleImageUpload, handleErrors } from "../../../helpers/handlers.js";
 import { formatCPFInput, formatBirthDateInput } from '../../../helpers/helpers.js';
+import { validateCPF, validateBirthDate } from '../../../helpers/validated.js';
 import { notify } from "@kyvg/vue3-notification";
 
 export default {
@@ -64,14 +67,26 @@ export default {
         return {
             errorMessages: [],
             isSubmitting: false,
+            cpfTouched: false,
+            birthDateTouched: false,
         };
+    },
+    computed: {
+        isValidCPF() {
+            return validateCPF(this.client.cpf);
+        },
+        isValidBirthDate() {
+            return validateBirthDate(this.client.birth_date);
+        },
     },
     methods: {
         formatCPFInput(event) {
             this.client.cpf = formatCPFInput(event.target.value);
+            this.cpfTouched = true;
         },
         formatBirthDateInput(event) {
             this.client.birth_date = formatBirthDateInput(event.target.value);
+            this.birthDateTouched = true;
         },
         async onSubmit() {
             try {
@@ -147,4 +162,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

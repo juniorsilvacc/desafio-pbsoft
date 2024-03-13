@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4">
                 <div class="client-image-container">
-                    <img :src="clientImage" alt="Imagem do Cliente" class="img-fluid client-image">
+                    <img :src="[`/storage/clients/${client.data.photo}`]" alt="Imagem do Cliente" class="img-fluid client-image">
                 </div>
             </div>
         </div>
@@ -55,11 +55,6 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-    },
-    computed: {
-        clientImage() {
-            return this.client.data.photo ? `/storage/clients/${this.client.data.photo}` : '/img/default.jpg';
-        }
     },
     methods: {
         // Formatting methods
