@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Client;
 use App\Repositories\ClientRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ClientRepository implements ClientRepositoryInterface
 {
@@ -14,7 +15,7 @@ class ClientRepository implements ClientRepositoryInterface
         $this->model = $client;
     }
 
-    public function getPaginate($name = null, $perPage = 5)
+    public function getPaginate(string $name = null, $perPage = 5): LengthAwarePaginator
     {
         $query = $this->model->orderBy('created_at', 'asc');
 
@@ -25,21 +26,21 @@ class ClientRepository implements ClientRepositoryInterface
         return $query->paginate($perPage);
     }
 
-    public function getByUUid(string $clientUuid)
+    public function getByUUid(string $clientUuid): ?Client
     {
         $client = $this->model->where('id', $clientUuid)->first();
 
         return $client;
     }
 
-    public function create(array $data)
+    public function create(array $data): Client
     {
         $newClient = $this->model->create($data);
 
         return $newClient;
     }
 
-    public function update(array $data, string $clientUuid)
+    public function update(array $data, string $clientUuid): ?Client
     {
         $client = $this->model->where('id', $clientUuid)->first();
 
@@ -48,7 +49,7 @@ class ClientRepository implements ClientRepositoryInterface
         return $client;
     }
 
-    public function delete(string $clientUuid)
+    public function delete(string $clientUuid): void
     {
         $client = $this->model->findOrFail($clientUuid);
 

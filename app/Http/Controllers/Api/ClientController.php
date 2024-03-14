@@ -8,6 +8,7 @@ use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
 use App\Services\UploadImageService;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -84,7 +85,6 @@ use Illuminate\Http\Request;
  */
 class ClientController extends Controller
 {
-    protected $path = 'clients';
     private $service;
     private $uploadImageService;
 
@@ -121,13 +121,13 @@ class ClientController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $name = $request->input('name');
 
         $clients = $this->service->getPaginate($name);
 
-        return ClientResource::collection($clients);
+        return ClientResource::collection($clients)->response();
     }
 
     /**
@@ -171,7 +171,7 @@ class ClientController extends Controller
      *     )
      * )
      */
-    public function show($clientUuid)
+    public function show($clientUuid): JsonResponse
     {
         $client = $this->service->getByUUid($clientUuid);
 
@@ -179,7 +179,7 @@ class ClientController extends Controller
             return response()->json(['message' => 'Cliente não encontrado'], 404);
         }
 
-        return new ClientResource($client);
+        return ClientResource::make($client)->response();
     }
 
     /**
@@ -211,24 +211,31 @@ class ClientController extends Controller
      *     )
      * )
      */
-    public function store(ClientStoreUpdateRequest $request)
+    public function store(ClientStoreUpdateRequest $request): JsonResponse
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
+            $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
 
-        // Método para manipular o upload da imagem
-        $uploadedImage = $this->uploadImageService->handleImageUpload($request);
+            // Service para manipular o upload da imagem
+            $uploadedImage = $this->uploadImageService->handleImageUpload($request);
 
-        if ($uploadedImage !== null) {
-            $data['photo'] = $uploadedImage;
+            if ($uploadedImage !== null) {
+                $data['photo'] = $uploadedImage;
+            }
+
+            $newClient = $this->service->create($data);
+
+            return response()->json([
+                'client' => new ClientResource($newClient),
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Erro ao processar a solicitação: '.$e->getMessage());
+
+            return response()->json([
+                'error' => 'Ocorreu um erro durante o cadastro. Por favor, tente novamente.'], 500);
         }
-
-        $newClient = $this->service->create($data);
-
-        return response()->json([
-            'client' => new ClientResource($newClient),
-        ], 201);
     }
 
     /**
@@ -273,28 +280,35 @@ class ClientController extends Controller
      *     )
      * )
      */
-    public function update(ClientStoreUpdateRequest $request, $clientUuid)
+    public function update(ClientStoreUpdateRequest $request, $clientUuid): JsonResponse
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
+            $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
 
-        $client = $this->service->getByUUid($clientUuid);
+            $client = $this->service->getByUUid($clientUuid);
 
-        if (!$client) {
-            return response()->json(['message' => 'Cliente não encontrado'], 404);
+            if (!$client) {
+                return response()->json(['message' => 'Cliente não encontrado'], 404);
+            }
+
+            $uploadedImage = $this->uploadImageService->handleImageUpload($request, $client->photo);
+
+            if ($uploadedImage !== null) {
+                $data['photo'] = $uploadedImage;
+            }
+
+            $client = $this->service->update($data, $clientUuid);
+
+            // return new ClientResource($client);
+            return response()->json([new ClientResource($client)], 200);
+        } catch (\Exception $e) {
+            Log::error('Erro ao processar a solicitação: '.$e->getMessage());
+
+            return response()->json([
+                'error' => 'Ocorreu um erro durante a atualização. Por favor, tente novamente.'], 500);
         }
-
-        // Método para manipular o upload da imagem
-        $uploadedImage = $this->uploadImageService->handleImageUpload($request, $client->photo);
-
-        if ($uploadedImage !== null) {
-            $data['photo'] = $uploadedImage;
-        }
-
-        $client = $this->service->update($data, $clientUuid);
-
-        return new ClientResource($client);
     }
 
     /**
@@ -325,8 +339,10 @@ class ClientController extends Controller
      *     )
      * )
      */
-    public function destroy($clientUuid)
+    public function destroy($clientUuid): JsonResponse
     {
         $this->service->delete($clientUuid);
+
+        return response()->json(['message' => 'Cliente deletado'], 204);
     }
 }
